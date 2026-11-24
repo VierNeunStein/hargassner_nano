@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.vscode/
+.idea/
+*.zip
+.DS_Store
+Thumbs.db
+.env
+# Log files from the boiler's SD card: attach the DAQPRJ block to an issue instead.
+*.DAQ
+*.daq

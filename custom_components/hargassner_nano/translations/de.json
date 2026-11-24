@@ -1,0 +1,215 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Mit der Heizung verbinden",
+        "description": "Gib die Adresse deiner Hargassner-Heizung ein. Die Touch-Steuerung muss per Kabel mit deinem Netzwerk verbunden sein; die IP-Adresse steht am Display in den Netzwerkeinstellungen. Die Integration liest nur Werte, sie verändert nichts an der Heizung.",
+        "data": {
+          "name": "Name",
+          "host": "IP-Adresse oder Hostname",
+          "port": "Port"
+        },
+        "data_description": {
+          "name": "Wird der Name des Geräts in Home Assistant.",
+          "port": "Die Heizung verwendet Port 23. Nur ändern, wenn du den Port selbst weiterleitest."
+        }
+      },
+      "reconfigure": {
+        "title": "Verbindung ändern",
+        "description": "Ändere die Adresse der Heizung. Danach wird das Datenformat neu erkannt. Das brauchst du auch nach einem Firmware-Update.",
+        "data": {
+          "host": "IP-Adresse oder Hostname",
+          "port": "Port"
+        }
+      },
+      "layout": {
+        "title": "Datenformat auswählen",
+        "description": "Die Heizung sendet {count} Werte pro Zeile. Mehrere bekannte Firmware-Formate haben diese Länge, oder keines passt genau. Wähle das Format deiner Heizung; im nächsten Schritt siehst du das Ergebnis und kannst es prüfen.\n\nMit (?) markierte Formate passen nicht zum Zahlenformat der empfangenen Zeile und sind wahrscheinlich falsch.",
+        "data": {
+          "layout": "Format"
+        }
+      },
+      "custom": {
+        "title": "Beschreibung der Heizung verwenden",
+        "description": "Die Heizung sendet {count} Werte pro Zeile. Was sie bedeuten, kann die Heizung selbst beschreiben:\n\n1. Aktiviere am Touch-Display die Aufzeichnung auf SD-Karte und stecke für einige Minuten eine SD-Karte ein.\n2. Öffne die Datei `{file}` von der Karte in einem Texteditor.\n3. Weit oben steht ein Block, der mit `{tag_open}` beginnt und mit `{tag_close}` endet. Kopiere den ganzen Block und füge ihn unten ein.",
+        "data": {
+          "custom_daqprj": "DAQPRJ-Block"
+        }
+      },
+      "confirm": {
+        "title": "Stimmen diese Werte?",
+        "description": "Format: **{layout}**\n\nSoeben von der Heizung gelesene Werte:\n\n{preview}\n\nVergleiche sie mit dem Display der Heizung. Sind sie plausibel, schließe die Einrichtung ab. Sind sie offensichtlich falsch, gehört dieses Format nicht zu deiner Firmware.",
+        "menu_options": {
+          "finish": "Die Werte stimmen, abschließen",
+          "layout": "Anderes eingebautes Format wählen",
+          "custom": "Beschreibung der Heizung verwenden (DAQPRJ)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Keine Verbindung. Prüfe die Adresse und ob die Heizung eingeschaltet und im Netzwerk erreichbar ist.",
+      "no_telegram": "Das Gerät antwortet, sendet aber keine Hargassner-Daten. Prüfe Adresse und Port.",
+      "invalid_daqprj": "Das ist kein verwendbarer DAQPRJ-Block. Kopiere alles vom öffnenden bis zum schließenden DAQPRJ-Tag.",
+      "count_mismatch": "Der Block beschreibt eine andere Anzahl von Werten, als die Heizung sendet ({count}). Er stammt vermutlich von einer anderen Firmware-Version."
+    },
+    "abort": {
+      "already_configured": "Diese Heizung ist bereits eingerichtet.",
+      "reconfigure_successful": "Die Verbindung wurde aktualisiert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Einstellungen",
+        "data": {
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "pellet_energy": "Heizwert der Pellets (kWh pro kg)",
+          "raw_channels": "Entitäten für alle übrigen Kanäle anlegen"
+        },
+        "data_description": {
+          "scan_interval": "Wie oft die Werte von der Heizung gelesen werden.",
+          "pellet_energy": "Wird für den Sensor Pelletenergie verwendet. Eine Änderung wirkt nur auf Pellets, die ab jetzt verbrannt werden.",
+          "raw_channels": "Legt jeden weiteren Wert und jedes Statusbit der Heizung als deaktivierte Diagnose-Entität an, benannt wie in der Heizung. Aktiviere die, die du brauchst."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "state": {
+        "name": "Betriebszustand",
+        "state": {
+          "off": "Aus",
+          "start_preparation": "Startvorbereitung",
+          "boiler_start": "Kessel Start",
+          "ignition_monitoring": "Zündüberwachung",
+          "ignition": "Zündung",
+          "transition_full_firing": "Übergang Leistungsbrand",
+          "full_firing": "Leistungsbrand",
+          "ember_preservation": "Gluterhaltung",
+          "waiting_ash_removal": "Warten auf Entaschung",
+          "ash_removal": "Entaschung",
+          "cleaning": "Putzen"
+        },
+        "state_attributes": {
+          "code": {
+            "name": "Zustandsnummer"
+          }
+        }
+      },
+      "error": {
+        "name": "Störung",
+        "state_attributes": {
+          "code": {
+            "name": "Störungsnummer"
+          }
+        }
+      },
+      "output": {
+        "name": "Leistung"
+      },
+      "o2": {
+        "name": "Restsauerstoff"
+      },
+      "draft_fan": {
+        "name": "Saugzug"
+      },
+      "boiler_temp": {
+        "name": "Kesseltemperatur"
+      },
+      "boiler_setpoint": {
+        "name": "Kessel Solltemperatur"
+      },
+      "return_temp": {
+        "name": "Rücklauftemperatur"
+      },
+      "flue_temp": {
+        "name": "Abgastemperatur"
+      },
+      "combustion_temp": {
+        "name": "Brennraumtemperatur"
+      },
+      "outdoor_temp": {
+        "name": "Außentemperatur"
+      },
+      "outdoor_temp_avg": {
+        "name": "Außentemperatur (Mittel)"
+      },
+      "buffer_temp_top": {
+        "name": "Puffer Temperatur oben"
+      },
+      "buffer_temp_mid": {
+        "name": "Puffer Temperatur Mitte"
+      },
+      "buffer_temp_bot": {
+        "name": "Puffer Temperatur unten"
+      },
+      "buffer_fill": {
+        "name": "Puffer Füllgrad"
+      },
+      "buffer_setpoint": {
+        "name": "Puffer Solltemperatur"
+      },
+      "dhw_temp": {
+        "name": "Boilertemperatur"
+      },
+      "pellet_silo": {
+        "name": "Silostand"
+      },
+      "pellet_consumption_total": {
+        "name": "Pelletverbrauch Gesamt"
+      },
+      "pellet_energy_total": {
+        "name": "Pelletenergie",
+        "state_attributes": {
+          "pellet_counter": {
+            "name": "Pelletzähler"
+          },
+          "energy_per_kg": {
+            "name": "Heizwert"
+          }
+        }
+      },
+      "hc_flow_temp": {
+        "name": "Heizkreis {circuit} Vorlauftemperatur"
+      },
+      "hc_flow_setpoint": {
+        "name": "Heizkreis {circuit} Vorlauf Solltemperatur"
+      },
+      "hc_room_temp": {
+        "name": "Heizkreis {circuit} Raumtemperatur"
+      },
+      "hc_room_setpoint": {
+        "name": "Heizkreis {circuit} Raum Solltemperatur"
+      }
+    },
+    "binary_sensor": {
+      "error_status": {
+        "name": "Fehlerstatus",
+        "state_attributes": {
+          "code": {
+            "name": "Störungsnummer"
+          },
+          "description": {
+            "name": "Störung"
+          }
+        }
+      },
+      "buffer_pump": {
+        "name": "Rücklauf-/Pufferpumpe"
+      },
+      "dhw_pump": {
+        "name": "Boilerladepumpe"
+      },
+      "hc_pump": {
+        "name": "Heizkreispumpe {circuit}"
+      }
+    }
+  },
+  "issues": {
+    "layout_mismatch": {
+      "title": "Die Heizung {name} sendet ein anderes Datenformat",
+      "description": "Die Heizung sendet jetzt {received} Werte pro Zeile, das eingestellte Format hat {expected}. Das passiert meist nach einem Firmware-Update. Bis das Format korrigiert ist, sind die Entitäten nicht verfügbar, statt falsche Werte anzuzeigen.\n\nÖffne die Integration, wähle im Menü des Eintrags „Neu konfigurieren“ und bestätige die Adresse; das Format wird dann neu erkannt."
+    }
+  }
+}

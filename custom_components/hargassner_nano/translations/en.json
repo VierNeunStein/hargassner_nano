@@ -1,0 +1,215 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to the boiler",
+        "description": "Enter the address of your Hargassner boiler. Its touch control must be connected to your network by cable; the display shows the IP address in the network settings. The integration only reads values, it never changes anything on the boiler.",
+        "data": {
+          "name": "Name",
+          "host": "IP address or host name",
+          "port": "Port"
+        },
+        "data_description": {
+          "name": "Becomes the name of the device in Home Assistant.",
+          "port": "The boiler listens on port 23. Only change this if you forward the port yourself."
+        }
+      },
+      "reconfigure": {
+        "title": "Change the connection",
+        "description": "Change the address of the boiler. The data format is detected again afterwards, which is also what you need after a firmware update.",
+        "data": {
+          "host": "IP address or host name",
+          "port": "Port"
+        }
+      },
+      "layout": {
+        "title": "Select the data format",
+        "description": "The boiler sends {count} values per line. More than one known firmware layout has this length, or none of them matches exactly. Select the layout of your boiler; the next step shows the result so you can check it.\n\nLayouts marked with (?) do not match the number format of the received line and are probably wrong.",
+        "data": {
+          "layout": "Layout"
+        }
+      },
+      "custom": {
+        "title": "Use the boiler's own description",
+        "description": "The boiler sends {count} values per line. To tell the integration what they mean, you can use the description the boiler writes itself:\n\n1. Enable logging to the SD card on the touch display and insert an SD card for a few minutes.\n2. Open the file `{file}` from the card in a text editor.\n3. Near the top there is a block that starts with `{tag_open}` and ends with `{tag_close}`. Copy the whole block and paste it below.",
+        "data": {
+          "custom_daqprj": "DAQPRJ block"
+        }
+      },
+      "confirm": {
+        "title": "Do these values look right?",
+        "description": "Layout: **{layout}**\n\nValues read from the boiler just now:\n\n{preview}\n\nCompare them with the display of the boiler. If they are plausible, finish the setup. If they are clearly wrong, this layout does not belong to your firmware.",
+        "menu_options": {
+          "finish": "The values are right, finish",
+          "layout": "Select another built-in layout",
+          "custom": "Use the boiler's own description (DAQPRJ)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "No connection. Check the address and that the boiler is switched on and reachable in your network.",
+      "no_telegram": "The device answers, but does not send Hargassner data. Check the address and the port.",
+      "invalid_daqprj": "This is not a usable DAQPRJ block. Copy everything from the opening to the closing DAQPRJ tag.",
+      "count_mismatch": "The block describes a different number of values than the boiler sends ({count}). It probably comes from another firmware version."
+    },
+    "abort": {
+      "already_configured": "This boiler is already set up.",
+      "reconfigure_successful": "The connection was updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Settings",
+        "data": {
+          "scan_interval": "Update interval (seconds)",
+          "pellet_energy": "Energy content of the pellets (kWh per kg)",
+          "raw_channels": "Create entities for all other channels"
+        },
+        "data_description": {
+          "scan_interval": "How often the values are read from the boiler.",
+          "pellet_energy": "Used for the pellet energy sensor. Changing it only affects pellets burnt from now on.",
+          "raw_channels": "Adds every remaining value and status bit of the boiler as a disabled diagnostic entity, named as the boiler names it. Enable the ones you need."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "state": {
+        "name": "Boiler state",
+        "state": {
+          "off": "Off",
+          "start_preparation": "Preparing start",
+          "boiler_start": "Boiler start",
+          "ignition_monitoring": "Monitoring ignition",
+          "ignition": "Ignition",
+          "transition_full_firing": "Transition to full firing",
+          "full_firing": "Full firing",
+          "ember_preservation": "Ember preservation",
+          "waiting_ash_removal": "Waiting for ash removal",
+          "ash_removal": "Ash removal",
+          "cleaning": "Cleaning"
+        },
+        "state_attributes": {
+          "code": {
+            "name": "State number"
+          }
+        }
+      },
+      "error": {
+        "name": "Fault message",
+        "state_attributes": {
+          "code": {
+            "name": "Fault number"
+          }
+        }
+      },
+      "output": {
+        "name": "Output"
+      },
+      "o2": {
+        "name": "Residual oxygen"
+      },
+      "draft_fan": {
+        "name": "Induced draft fan"
+      },
+      "boiler_temp": {
+        "name": "Boiler temperature"
+      },
+      "boiler_setpoint": {
+        "name": "Boiler target temperature"
+      },
+      "return_temp": {
+        "name": "Return temperature"
+      },
+      "flue_temp": {
+        "name": "Flue gas temperature"
+      },
+      "combustion_temp": {
+        "name": "Combustion chamber temperature"
+      },
+      "outdoor_temp": {
+        "name": "Outside temperature"
+      },
+      "outdoor_temp_avg": {
+        "name": "Outside temperature (average)"
+      },
+      "buffer_temp_top": {
+        "name": "Buffer temperature top"
+      },
+      "buffer_temp_mid": {
+        "name": "Buffer temperature middle"
+      },
+      "buffer_temp_bot": {
+        "name": "Buffer temperature bottom"
+      },
+      "buffer_fill": {
+        "name": "Buffer charge level"
+      },
+      "buffer_setpoint": {
+        "name": "Buffer target temperature"
+      },
+      "dhw_temp": {
+        "name": "Hot water tank temperature"
+      },
+      "pellet_silo": {
+        "name": "Pellet stock"
+      },
+      "pellet_consumption_total": {
+        "name": "Pellet consumption"
+      },
+      "pellet_energy_total": {
+        "name": "Pellet energy",
+        "state_attributes": {
+          "pellet_counter": {
+            "name": "Pellet counter"
+          },
+          "energy_per_kg": {
+            "name": "Energy content"
+          }
+        }
+      },
+      "hc_flow_temp": {
+        "name": "Heating circuit {circuit} flow temperature"
+      },
+      "hc_flow_setpoint": {
+        "name": "Heating circuit {circuit} flow target temperature"
+      },
+      "hc_room_temp": {
+        "name": "Heating circuit {circuit} room temperature"
+      },
+      "hc_room_setpoint": {
+        "name": "Heating circuit {circuit} room target temperature"
+      }
+    },
+    "binary_sensor": {
+      "error_status": {
+        "name": "Fault",
+        "state_attributes": {
+          "code": {
+            "name": "Fault number"
+          },
+          "description": {
+            "name": "Fault message"
+          }
+        }
+      },
+      "buffer_pump": {
+        "name": "Return / buffer pump"
+      },
+      "dhw_pump": {
+        "name": "Hot water charging pump"
+      },
+      "hc_pump": {
+        "name": "Heating circuit {circuit} pump"
+      }
+    }
+  },
+  "issues": {
+    "layout_mismatch": {
+      "title": "The boiler {name} sends a different data format",
+      "description": "The boiler now sends {received} values per line, but the configured layout has {expected}. This usually happens after a firmware update. Until the layout is corrected, the entities are unavailable rather than showing wrong values.\n\nOpen the integration, choose Reconfigure from the menu of the entry and confirm the address; the layout is then detected again."
+    }
+  }
+}

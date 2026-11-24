@@ -1,0 +1,45 @@
+name: Firmware layout
+description: Report a firmware that is not built in, or a built-in layout that works or shows wrong values
+labels: [layout]
+body:
+  - type: input
+    id: boiler
+    attributes:
+      label: Boiler and firmware
+      description: Model and the firmware version shown on the touch display.
+      placeholder: Nano-PK 20, V14.0HAR.o3
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What do you report?
+      options:
+        - My firmware is not built in
+        - A built-in layout shows wrong values
+        - A built-in layout works (confirmation)
+    validations:
+      required: true
+  - type: textarea
+    id: capture
+    attributes:
+      label: Data from the boiler
+      description: >
+        The output of `python tools/capture.py <address of the boiler> --all`, or the
+        diagnostics file of the integration, or at least one complete line starting with "pm".
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: daqprj
+    attributes:
+      label: DAQPRJ block
+      description: >
+        The block from <DAQPRJ> to </DAQPRJ> of a DAQ file from the boiler's SD card (see the README).
+        With it the layout can be built in exactly.
+      render: xml
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: For wrong values, name the value in Home Assistant and on the boiler's display.

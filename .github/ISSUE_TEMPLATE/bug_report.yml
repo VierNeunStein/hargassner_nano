@@ -1,0 +1,40 @@
+name: Problem
+description: Something does not work or shows wrong values
+labels: [bug]
+body:
+  - type: input
+    id: boiler
+    attributes:
+      label: Boiler and firmware
+      description: Model and the firmware version shown on the touch display.
+      placeholder: Nano.2 20, V14.1HAR.q1
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Version of this integration and of Home Assistant.
+      placeholder: Integration 2.0.0, Home Assistant 2026.11.1
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens, and what did you expect?
+      description: If values are wrong, name the entity, the value in Home Assistant and the value on the boiler's display.
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: >
+        Device page, menu, "Download diagnostics". Drag the file here. It contains the last data
+        line and the decoded values, but not the address of your boiler.
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: Lines from Settings, System, Logs that mention hargassner_nano.
+      render: text

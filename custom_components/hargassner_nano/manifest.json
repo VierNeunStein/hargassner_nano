@@ -1,0 +1,13 @@
+{
+  "domain": "hargassner_nano",
+  "name": "Hargassner Nano",
+  "codeowners": ["@VierNeunStein"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/VierNeunStein/hargassner_nano",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/VierNeunStein/hargassner_nano/issues",
+  "requirements": [],
+  "version": "2.0.0"
+}

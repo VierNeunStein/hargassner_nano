@@ -1,0 +1,82 @@
+{
+  "entity": {
+    "sensor": {
+      "state": {
+        "default": "mdi:fire",
+        "state": {
+          "off": "mdi:fire-off",
+          "ash_removal": "mdi:delete-sweep",
+          "cleaning": "mdi:broom"
+        }
+      },
+      "error": {
+        "default": "mdi:alert-circle-outline"
+      },
+      "output": {
+        "default": "mdi:gauge"
+      },
+      "o2": {
+        "default": "mdi:molecule"
+      },
+      "draft_fan": {
+        "default": "mdi:fan"
+      },
+      "boiler_temp": {
+        "default": "mdi:thermometer-high"
+      },
+      "boiler_setpoint": {
+        "default": "mdi:thermometer-chevron-up"
+      },
+      "return_temp": {
+        "default": "mdi:thermometer-low"
+      },
+      "combustion_temp": {
+        "default": "mdi:fire-circle"
+      },
+      "buffer_fill": {
+        "default": "mdi:storage-tank"
+      },
+      "buffer_setpoint": {
+        "default": "mdi:thermometer-chevron-up"
+      },
+      "dhw_temp": {
+        "default": "mdi:water-thermometer"
+      },
+      "pellet_silo": {
+        "default": "mdi:silo"
+      },
+      "pellet_consumption_total": {
+        "default": "mdi:chart-bar"
+      },
+      "hc_flow_setpoint": {
+        "default": "mdi:thermometer-chevron-up"
+      },
+      "hc_room_temp": {
+        "default": "mdi:home-thermometer"
+      },
+      "hc_room_setpoint": {
+        "default": "mdi:home-thermometer-outline"
+      }
+    },
+    "binary_sensor": {
+      "buffer_pump": {
+        "default": "mdi:pump",
+        "state": {
+          "off": "mdi:pump-off"
+        }
+      },
+      "dhw_pump": {
+        "default": "mdi:pump",
+        "state": {
+          "off": "mdi:pump-off"
+        }
+      },
+      "hc_pump": {
+        "default": "mdi:pump",
+        "state": {
+          "off": "mdi:pump-off"
+        }
+      }
+    }
+  }
+}
