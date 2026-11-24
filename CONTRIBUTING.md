@@ -44,8 +44,22 @@ the `DAQPRJ` definitions, and its name to `translations/en.json` and
 python -m unittest discover -s tests -t .
 ```
 
-No packages are needed. `pytest` works as well. The GitHub workflow additionally runs
-Home Assistant's `hassfest` and the HACS validation.
+These tests cover the protocol code and need no packages.
+
+The tests in `tests_ha` run the integration inside Home Assistant: config flow,
+reconfigure and options, setup and migration of 1.x entries, repairs, diagnostics and
+the entities. The boiler is simulated. They need Python 3.14 and Linux or macOS (Home
+Assistant does not run on Windows; WSL works):
+
+```bash
+pip install -r requirements_test.txt
+python -m pytest tests_ha
+```
+
+Run the two test folders separately: Home Assistant's test plugin blocks the network
+sockets that `tests/test_client.py` uses.
+
+The GitHub workflow runs both, plus Home Assistant's `hassfest` and the HACS validation.
 
 To see what a real boiler sends:
 

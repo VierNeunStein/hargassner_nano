@@ -14,3 +14,5 @@ Thumbs.db
 # Log files from the boiler's SD card: attach the DAQPRJ block to an issue instead.
 *.DAQ
 *.daq
+.coverage
+htmlcov/
