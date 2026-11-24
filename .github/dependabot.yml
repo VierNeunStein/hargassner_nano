@@ -5,3 +5,8 @@ updates:
     directory: /
     schedule:
       interval: monthly
+  # Keeps the Home Assistant test packages (requirements_test.txt) up to date.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: monthly

@@ -1,0 +1,3 @@
+# Packages for the Home Assistant tests in tests_ha. The protocol tests in tests/ need none.
+# The plugin pins the matching Home Assistant version; Dependabot keeps it current.
+pytest-homeassistant-custom-component==0.13.375
